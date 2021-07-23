@@ -12,7 +12,7 @@
             <a href="{{ route('student.index') }}" class="btn btn-sm btn-success ml-auto">All Student</a>
         </div>
         <div class="card-body">
-            <form action="{{ route('student.update') }}" method="POST">
+            <form action="{{ route('student.update', $student->id) }}" method="POST">
                 @method('PUT')
                 @csrf
                 <div class="form-group">

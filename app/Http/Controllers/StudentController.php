@@ -68,6 +68,7 @@ class StudentController extends Controller
     public function edit($id)
     {
         $student = Student::find($id);
+        // dd($student);
         return view('student.edit', compact('student'));
     }
 
@@ -98,6 +99,10 @@ class StudentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $student = Student::find($id);
+        // dd($student);
+        $student->delete();
+
+        return redirect()->route('student.index')->with('success', 'student deleted successfully!');
     }
 }

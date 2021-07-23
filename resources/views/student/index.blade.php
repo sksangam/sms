@@ -40,7 +40,11 @@
                             <td>{{ $student->address }}</td>
                             <td class="d-flex justify-content-center">
                                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-primary ml-auto">Edit</a>
-                                <a href="{{ route('student.create') }}" class="btn btn-sm btn-danger ml-2">Delete</a>
+                                <a href="{{ route('student.destroy', $student->id) }}" onclick="event.preventDefault(); document.getElementById('student-delete').submit();" class="btn btn-sm btn-danger ml-2">Delete</a>
+                                <form id="student-delete" action="{{ route('student.destroy', $student->id) }}" class="d-none" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                </form>
                             </td>
                         </tr>
                         @endforeach
