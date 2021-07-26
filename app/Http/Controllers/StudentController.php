@@ -36,6 +36,14 @@ class StudentController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name' => 'required',
+            'father_name' => 'required',
+            'email' => 'required|unique:students|max:255',
+            'phone' => 'required|unique:students|size:10',
+            'address' => 'required'
+        ]);
+
         $student = new Student();
         $student->name = $request->name;
         $student->father_name = $request->father_name;
@@ -81,9 +89,19 @@ class StudentController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'name' => 'required',
+            'father_name' => 'required',
+            'email' => 'required|max:255|unique:students,email,'.$id,
+            'phone' => 'required|size:10|unique:students,phone,'.$id,
+            'address' => 'required'
+        ]);
+
         $student = Student::find($id);
         $student->name = $request->name;
         $student->father_name = $request->father_name;
+        $student->email = $request->email;
+        $student->phone = $request->phone;
         $student->address = $request->address;
 
         $student->save();
@@ -100,7 +118,6 @@ class StudentController extends Controller
     public function destroy($id)
     {
         $student = Student::find($id);
-        // dd($student);
         $student->delete();
 
         return redirect()->route('student.index')->with('success', 'student deleted successfully!');

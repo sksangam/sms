@@ -1,5 +1,7 @@
 @extends('layouts.main')
 
+@section('title','All Students')
+
 @section('content')
 <div class="container-fluid">
 
@@ -30,24 +32,32 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($students as $student)
+                        @forelse ($students as $student)
                         <tr>
                             <td>{{ $student->id }}</td>
                             <td>{{ $student->name }}</td>
                             <td>{{ $student->father_name }}</td>
                             <td>{{ $student->email }}</td>
-                            <td>{{ $student->phone }}/04/25</td>
+                            <td>{{ $student->phone }}</td>
                             <td>{{ $student->address }}</td>
                             <td class="d-flex justify-content-center">
                                 <a href="{{ route('student.edit', $student->id) }}" class="btn btn-sm btn-primary ml-auto">Edit</a>
-                                <a href="{{ route('student.destroy', $student->id) }}" onclick="event.preventDefault(); document.getElementById('student-delete').submit();" class="btn btn-sm btn-danger ml-2">Delete</a>
-                                <form id="student-delete" action="{{ route('student.destroy', $student->id) }}" class="d-none" method="POST">
+
+                                <form action="{{ route('student.destroy', $student->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-danger ml-2">Delete</button>
                                 </form>
                             </td>
                         </tr>
-                        @endforeach
+
+                        @empty
+                        <tr>
+                            <td colspan="7">
+                                <div class="text-center">No records available</div>
+                            </td>
+                        </tr>
+                        @endforelse
                     </tbody>
                 </table>
             </div>

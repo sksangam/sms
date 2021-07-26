@@ -1,5 +1,6 @@
 @extends('layouts.main')
 
+@section('title','Update Student')
 
 @section('content')
 <div class="container-fluid">
@@ -16,32 +17,52 @@
                 @method('PUT')
                 @csrf
                 <div class="form-group">
-                  <label>Name</label>
-                  <input type="text" name="name" value="{{ $student->name }}"  class="form-control" placeholder="Enter name">
-                  {{-- <small class="form-text text-muted">abc.</small> --}}
+                    <label>Name</label>
+                    <input type="text" name="name"  class="form-control @error('name') is-invalid @enderror" value="{{ old('name',$student->name) }}" placeholder="Enter name">
+                    @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <p class="form-text text-danger"><strong>{{ $message }}</strong></p>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                <label>Father Name</label>
-                  <input type="text" name="father_name" value="{{ $student->father_name }}"  class="form-control" placeholder="Enter father name">
-                  {{-- <small class="form-text text-muted">abc.</small> --}}
+                    <label>Father Name</label>
+                    <input type="text" name="father_name"  class="form-control @error('father_name') is-invalid @enderror" value="{{ old('father_name',$student->father_name) }}" placeholder="Enter father name">
+                    @error('father_name')
+                        <span class="invalid-feedback" role="alert">
+                            <p class="form-text text-danger"><strong>{{ $message }}</strong></p>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
-                <label>Email</label>
-                <input type="email" name="email" value="{{ $student->email }}"  class="form-control" placeholder="Enter email">
-                {{-- <small class="form-text text-muted">abc.</small> --}}
-              </div>
-              <div class="form-group">
-              <label>Phone</label>
-                  <input type="text" name="phone" value="{{ $student->phone }}"  class="form-control" placeholder="Enter phone">
-                  {{-- <small class="form-text text-muted">abc.</small> --}}
+                    <label>Email</label>
+                    <input type="email" name="email"  class="form-control @error('email') is-invalid @enderror" value="{{ old('email',$student->email) }}" placeholder="Enter email">
+                    @error('email')
+                        <span class="invalid-feedback" role="alert">
+                            <p class="form-text text-danger"><strong>{{ $message }}</strong></p>
+                        </span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Phone</label>
+                    <input type="text" name="phone"  class="form-control @error('phone') is-invalid @enderror" value="{{ old('phone',$student->phone) }}"placeholder="Enter phone">
+                    @error('phone')
+                        <span class="invalid-feedback" role="alert">
+                            <p class="form-text text-danger"><strong>{{ $message }}</strong></p>
+                        </span>
+                    @enderror
                 </div>
                 <div class="form-group">
                     <label>Address</label>
-                        <textarea name="address" id="" cols="30" rows="3" class="form-control">{{ $student->address }}</textarea>
-                        {{-- <small class="form-text text-muted">abc.</small> --}}
-                      </div>
-                  <button type="submit" class="btn btn-primary">Submit</button>
-              </form>
+                    <textarea name="address" id="" cols="30" rows="3" class="form-control @error('address') is-invalid @enderror">{{ old('address',$student->address) }}</textarea>
+                    @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <p class="form-text text-danger"><strong>{{ $message }}</strong></p>
+                        </span>
+                    @enderror
+                </div>
+                <button type="submit" class="btn btn-primary">Update</button>
+            </form>
         </div>
     </div>
 
